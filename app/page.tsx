@@ -87,8 +87,7 @@ function LanguageSwitcher() {
   const menuRef = useRef<HTMLDivElement>(null);
 
   const handleSelect = (lang: string) => {
-    i18n.changeLanguage(lang);
-    localStorage.setItem("language", lang);
+    i18n.changeLanguage(lang);    
     setOpen(false);
   };
 
@@ -97,9 +96,7 @@ function LanguageSwitcher() {
       if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
         setOpen(false);
       }
-    }
-    //extraerr y guardar en una variable el lenguaje del localestorage 
-    const idioma = localStorage.getItem("language"); 
+    }    
     document.addEventListener("mousedown", handleClickOutside);
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
@@ -339,8 +336,7 @@ export default function DashboardProvincias() {
   const obtenerTranscripcionesIA = async (codProvincia: string, departamento: string, tipo: string) => {
     setLoading(true)
     try {
-      const idioma = localStorage.getItem('language') || 'es';
-      const response = await fetch(ENDPOINTS.transcriptionsByProvByDep(codProvincia, departamento, idioma, tipo))
+      const response = await fetch(ENDPOINTS.transcriptionsByProvByDep(codProvincia, departamento, i18n.language, tipo))
       console.log(response, 'response transcripcionesIA:');
       if (!response.ok) throw new Error("Error al obtener transcripciones IA")
       const data = await response.json()
@@ -493,8 +489,7 @@ export default function DashboardProvincias() {
   const obtenerDetalleTranscripcion = async (idTranscripcion: number) => {
     setLoading(true)
     try {
-      const idioma = localStorage.getItem('language') || 'es';
-      const response = await fetch(ENDPOINTS.transcriptionById(idTranscripcion, idioma))
+      const response = await fetch(ENDPOINTS.transcriptionById(idTranscripcion, i18n.language))
       console.log(response, 'response detalle transcripcion:');
       if (!response.ok) {
         throw new Error("Error al obtener el detalle")
@@ -524,8 +519,7 @@ export default function DashboardProvincias() {
     }
     setLoading(true);
     try {
-      const idioma = localStorage.getItem('language') || 'es';
-      const response = await fetch(ENDPOINTS.problematicasByProvByDepByGrouper(codProvincia, codDepartamento, categoryAgrupador, idioma, tipoSeleccionado));
+      const response = await fetch(ENDPOINTS.problematicasByProvByDepByGrouper(codProvincia, codDepartamento, categoryAgrupador, i18n.language, tipoSeleccionado));
       console.log(response, 'response category detail:');
       if (!response.ok) {
         throw new Error('Error al obtener los datos');
@@ -1937,7 +1931,7 @@ export default function DashboardProvincias() {
                               {t('Análisis')} #{index + 1}
                             </Badge>
                             <div className="text-xs text-muted-foreground">
-                              {item.analisis.split(' ').length} {t('palabras')} • {Math.ceil(item.analisis.length / 1000)} {t('min lectura')}
+                              {item.analisis.split(' ').length} {t('palabras')} • {Math.ceil(item.analisis.length / 1000)} {t('lectura')}
                             </div>
                           </div>
                           <Button
