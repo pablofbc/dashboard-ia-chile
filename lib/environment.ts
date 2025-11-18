@@ -15,13 +15,13 @@ export const ENDPOINTS = {
     }
     return url;
   },
-  transcriptionsByProvByDep: (codProvincia: string, departamento: string, tipo?: string) => {
-    let url = `${API_BASE_URL}/transcription-by-prov-by-dep?idprov=${codProvincia}&iddep=${departamento}`
+  transcriptionsByProvByDep: (codProvincia: string, departamento: string, idioma?: string, tipo?: string) => {
+    let url = `${API_BASE_URL}/transcription-by-prov-by-dep?idprov=${codProvincia}&iddep=${departamento}&idioma=${idioma}`
     if (tipo) {
       url += `&tipo=${tipo}`;
     }
     return url;
   },
-  transcriptionById: (idTranscripcion: number) => `${API_BASE_URL}/transcription-by-id?idTranscription=${idTranscripcion}`,
-  problematicasByProvByDepByGrouper: (codProvincia: string, codDepartamento: string, agrupador: string, tipo?: string) => `${API_BASE_URL}/problematicas-by-prov-by-dep-by-grouper?codProvincia=${codProvincia}&codDepartamento=${codDepartamento}&agrupador=${agrupador}&tipo=${tipo || 'problematicas'}`,
+  transcriptionById: (idTranscripcion: number, idioma?: string) => `${API_BASE_URL}/transcription-by-id?idTranscription=${idTranscripcion}&idioma=${idioma}`,
+  problematicasByProvByDepByGrouper: (codProvincia: string, codDepartamento: string, agrupador: string, idioma?: string, tipo?: string) => `${API_BASE_URL}/problematicas-by-prov-by-dep-by-grouper?codProvincia=${codProvincia}&codDepartamento=${codDepartamento}&agrupador=${agrupador}&idioma=${idioma}&tipo=${tipo || 'problematicas'}`,
 };

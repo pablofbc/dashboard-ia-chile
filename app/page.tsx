@@ -88,6 +88,7 @@ function LanguageSwitcher() {
 
   const handleSelect = (lang: string) => {
     i18n.changeLanguage(lang);
+    localStorage.setItem("language", lang);
     setOpen(false);
   };
 
@@ -97,7 +98,8 @@ function LanguageSwitcher() {
         setOpen(false);
       }
     }
-
+    //extraerr y guardar en una variable el lenguaje del localestorage 
+    const idioma = localStorage.getItem("language"); 
     document.addEventListener("mousedown", handleClickOutside);
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
@@ -195,7 +197,7 @@ export default function DashboardProvincias() {
       }
       const data: ProblematicaResult[] = await response.json()
       setProblematicas(data)
-      console.log(data, 'problematicas:');
+      //console.log(data, 'problematicas:');
       // 🔹 Construir lista única de departamentos con código y nombre
       const uniqueDepartments = Array.from(
         new Map(
@@ -337,7 +339,9 @@ export default function DashboardProvincias() {
   const obtenerTranscripcionesIA = async (codProvincia: string, departamento: string, tipo: string) => {
     setLoading(true)
     try {
-      const response = await fetch(ENDPOINTS.transcriptionsByProvByDep(codProvincia, departamento, tipo))
+      const idioma = localStorage.getItem('language') || 'es';
+      const response = await fetch(ENDPOINTS.transcriptionsByProvByDep(codProvincia, departamento, idioma, tipo))
+      console.log(response, 'response transcripcionesIA:');
       if (!response.ok) throw new Error("Error al obtener transcripciones IA")
       const data = await response.json()
       setTranscripcionesIA(data)
@@ -489,7 +493,9 @@ export default function DashboardProvincias() {
   const obtenerDetalleTranscripcion = async (idTranscripcion: number) => {
     setLoading(true)
     try {
-      const response = await fetch(ENDPOINTS.transcriptionById(idTranscripcion))
+      const idioma = localStorage.getItem('language') || 'es';
+      const response = await fetch(ENDPOINTS.transcriptionById(idTranscripcion, idioma))
+      console.log(response, 'response detalle transcripcion:');
       if (!response.ok) {
         throw new Error("Error al obtener el detalle")
       }
@@ -518,7 +524,9 @@ export default function DashboardProvincias() {
     }
     setLoading(true);
     try {
-      const response = await fetch(ENDPOINTS.problematicasByProvByDepByGrouper(codProvincia, codDepartamento, categoryAgrupador,tipoSeleccionado));
+      const idioma = localStorage.getItem('language') || 'es';
+      const response = await fetch(ENDPOINTS.problematicasByProvByDepByGrouper(codProvincia, codDepartamento, categoryAgrupador, idioma, tipoSeleccionado));
+      console.log(response, 'response category detail:');
       if (!response.ok) {
         throw new Error('Error al obtener los datos');
       }
@@ -1365,7 +1373,7 @@ export default function DashboardProvincias() {
                     {sentimientos.map((s, i) => (
                       <div key={i} className="space-y-1">
                         <div className="flex justify-between text-sm">
-                          <span className="capitalize font-medium">{s.tipo}</span>
+                          <span className="capitalize font-medium">{t(s.tipo)} </span>
                           <span className="text-muted-foreground">{s.cantidad} ({s.porcentaje}%)</span>
                         </div>
                         <div className="w-full bg-muted rounded-full h-2">
