@@ -5,14 +5,14 @@
 export const API_BASE_URL = "https://cc210ecba693.sn.mynetname.net:9091/fichachileapi/api/Problematica";
 
 export const ENDPOINTS = {
-  problematicasByCodProvincia: (codProvincia: string, tipo?: string, lang?: string) => {
-    let url = `${API_BASE_URL}/problematicas-by-codprovincia?codProvincia=${codProvincia}`;
+  problematicasByCodProvincia: (codProvincia: string, idioma?: string, tipo?: string) => {
+    let url = `${API_BASE_URL}/problematicas-by-codprovincia?codProvincia=${codProvincia}&idioma=${idioma}`;
     if (tipo) {
       url += `&tipo=${tipo}`;
     }
-    if (lang) {
-      url += `&lang=${lang}`;
-    }
+    // if (lang) {
+    //   url += `&lang=${lang}`;
+    // }
     return url;
   },
   transcriptionsByProvByDep: (codProvincia: string, departamento: string, idioma?: string, tipo?: string) => {

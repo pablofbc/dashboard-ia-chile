@@ -188,7 +188,7 @@ export default function DashboardProvincias() {
     setLoading(true)
     setError("")
     try {
-      const response = await fetch(ENDPOINTS.problematicasByCodProvincia(codProvincia, tipo, i18n.language))
+      const response = await fetch(ENDPOINTS.problematicasByCodProvincia(codProvincia, i18n.language, tipo))
       if (!response.ok) {
         throw new Error("Error al obtener los datos")
       }
