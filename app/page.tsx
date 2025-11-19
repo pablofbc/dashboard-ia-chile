@@ -60,7 +60,6 @@ interface ProblematicaResult {
   categoria?: string
   idtrans: number
   textoAgrupador: string
-  textoAgrupadorEn: string
 }
 
 interface DatosGraficos {
@@ -360,8 +359,7 @@ export default function DashboardProvincias() {
 
     const agrupadores = problematicasFiltradas.reduce((acc, item) => {
       const originalAgrupador = item.agrupador || "Sin categoría"
-      // Usar textoAgrupadorEn si el idioma es inglés, sino textoAgrupador
-      const agrupadorDisplay = i18n.language === 'en' ? item.textoAgrupadorEn : item.textoAgrupador
+      const agrupadorDisplay = item.textoAgrupador
 
       if (!acc[agrupadorDisplay]) {
         acc[agrupadorDisplay] = { value: 0, originalName: originalAgrupador }
@@ -1060,7 +1058,7 @@ export default function DashboardProvincias() {
                               ))}
                               <PaginationItem className="flex items-center mx-2">
                                 <span className="text-xs sm:text-sm text-muted-foreground">
-                                  Página {depPage} de {depPageCount}
+                                  {t('Pagina')} {depPage} {t('de')} {depPageCount}
                                 </span>
                               </PaginationItem>
                               <PaginationItem>

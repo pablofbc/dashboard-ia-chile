@@ -10,9 +10,6 @@ export const ENDPOINTS = {
     if (tipo) {
       url += `&tipo=${tipo}`;
     }
-    // if (lang) {
-    //   url += `&lang=${lang}`;
-    // }
     return url;
   },
   transcriptionsByProvByDep: (codProvincia: string, departamento: string, idioma?: string, tipo?: string) => {
