@@ -1,9 +1,9 @@
 // lib/environment.ts
 
 //export const API_BASE_URL = "https://apiaudioanalysis.azurewebsites.net/api/Problematica";
-export const API_BASE_URL = "https://apifichaeramet-chieng.azurewebsites.net/api/Problematica";
+//export const API_BASE_URL = "https://apifichaeramet-chieng.azurewebsites.net/api/Problematica";
 //export const API_BASE_URL = "https://localhost:7100/api/Problematica";
-//export const API_BASE_URL = "https://cc210ecba693.sn.mynetname.net:9091/fichachileapi/api/Problematica";
+export const API_BASE_URL = "https://cc210ecba693.sn.mynetname.net:9091/fichachileapi/api/Problematica";
 
 export const ENDPOINTS = {
   problematicasByCodProvincia: (codProvincia: string, idioma?: string, tipo?: string) => {
